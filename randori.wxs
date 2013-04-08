@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Product Id="*" Name="Randori SharpKit Extension" Language="1033" Version="$(var.PluginVersion)" Manufacturer="LTN Consulting, Inc. /dba Digital Primates" UpgradeCode="5119605b-e1ea-4c54-9dd7-2374ea9be3be">
+    <Package InstallerVersion="300" InstallScope="perMachine" Compressed="yes" Description="Randori SharpKit Extension v$(var.PluginVersion)" Manufacturer="LTN Consulting, Inc. /dba Digital Primates" />
+    
+  <PropertyRef Id="NETFRAMEWORK40FULLINSTALLROOTDIR" />
+	<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+	<Upgrade Id="5119605b-e1ea-4c54-9dd7-2374ea9be3be">  
+	   <UpgradeVersion
+	      Minimum="0.0.0" Maximum="$(var.PluginVersion)"
+	      Property="PREVIOUSVERSIONSINSTALLED"
+	      IncludeMinimum="yes" IncludeMaximum="no" />
+	</Upgrade> 
+
+    <InstallExecuteSequence>
+	<RemoveExistingProducts After="InstallInitialize"/>
+    </InstallExecuteSequence>
+    
+    <Media Id='1' Cabinet='randorisharpkit.cab' EmbedCab='yes' />
+
+    <!-- Step 1: Define the directory structure -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="NETFRAMEWORK40FULLINSTALLROOTDIR">
+        <Directory Id="SharpKitFolder" Name="SharpKit">
+          <Directory Id="SharpKitVersionFolder" Name="5">
+            <Component Id="RandoriCompilerPlugin.dll" Guid="F808E2F0-DD7A-4DFF-9E23-05C228F463D4">
+              <File Id="RandoriCompilerPlugin.dll" Source="RandoriCompilerPlugin.dll" KeyPath="yes" Checksum="yes"/>
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+    
+    <!-- Step 3: Tell WiX to install the files and other components -->
+    <Feature Id="Main" Title="Randori SharpKit Extension" Level="1">
+      <ComponentRef Id="RandoriCompilerPlugin.dll" />
+    </Feature>
+  </Product>
+</Wix>
