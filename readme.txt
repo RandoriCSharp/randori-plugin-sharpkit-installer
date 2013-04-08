@@ -9,5 +9,5 @@ Update the version number in the command below to match the RandoriCompilerPlugi
 
 Run these commands:
 	
-candle randori.wxs -dPluginVersion=1.4.0 -ext WixNetFxExtension.dll
-light randori.wixobj  -ext WixNetFxExtension.dll
+candle RandoriCompilerExtension.wxs -dPluginVersion=1.4.0 -ext WixNetFxExtension.dll
+light RandoriCompilerExtension.wixobj  -ext WixNetFxExtension.dll
